@@ -35,6 +35,9 @@
 (require 'js)
 (require 'cc-mode)
 
+(defvar qml-import-regexp "^import "
+  "Regular expression for finding import statements.")
+
 (defvar qml-keywords
   (concat "\\<" (regexp-opt '("import")) "\\>\\|" js--keyword-re))
 
@@ -80,6 +83,7 @@
 
 (defconst qml-defun-end-regexp "\}")
 
+  ;; Methods dealing with editing entire elements
 (defun qml-beginning-of-defun ()
   "Set the pointer at the beginning of the element within which the pointer is located."
   (interactive)
@@ -98,12 +102,13 @@
   (set-mark (point))
   (qml-beginning-of-defun))
 
-
 (defun qml-indent-exp ()
   "Properly indents the contents of the element within which the pointer is
 currently located."
   (interactive)
   (indent-region (point) (save-excursion (forward-list) (point))))
+
+
 
 (defun qml-indent-close-bracket ()
   "Properly indents inputted closing brackets (aligns closing bracket with
@@ -111,6 +116,55 @@ element name)."
   (interactive)
   (insert "}")
   (indent-for-tab-command))
+
+
+
+  ;; Methods dealing with import statements, borrowed heavily from java-import
+  ;; -- and, by extention, javadoc-lookup -- by Christopher Wellons
+(defun qml-has-import ()
+  "Return t if this source has at least one import statement."
+  (save-excursion
+    (goto-char (point-min))
+    (and (search-forward-regexp qml-import-regexp nil t) t)))
+
+(defun qml-goto-first-import ()
+  "Move cursor to the first import statement."
+  (goto-char (point-min))
+  (search-forward-regexp qml-import-regexp)
+  (move-beginning-of-line nil)
+  (point))
+
+(defun qml-goto-last-import ()
+  "Move cursor to the first import statement."
+  (goto-char (point-max))
+  (search-backward-regexp qml-import-regexp)
+  (move-end-of-line nil)
+  (forward-char)
+  (point))
+
+;;;###autoload
+(defun qml-sort-imports ()
+  "Sort the imports in the import section in proper order."
+  (interactive)
+  (when (qml-has-import)
+    (save-excursion
+      (sort-lines
+        nil
+	(qml-goto-first-import)
+	(qml-goto-last-import)))))
+
+(defun qml-add-import (class)
+  "Insert an import statement at import section at the top of the file."
+  (interactive "sClass name: ")
+  (save-excursion
+    (if (qml-has-import)
+	(progn
+	  (qml-goto-first-import)
+	  (insert "import " class "\n")
+	  (qml-sort-imports))
+      (progn
+	(goto-char (point-min))
+	(insert "import " class "\n\n")))))
 
 (provide 'qml-mode)
 
