@@ -66,6 +66,7 @@
   (setq font-lock-defaults '(qml-font-lock-keywords))
   (set (make-local-variable 'comment-start) "/* ")
   (set (make-local-variable 'comment-end) " */")
+  (hs-minor-mode t)
   (run-hooks 'qml-mode-hook))
 
 (define-key qml-mode-map "\M-\C-a" 'qml-beginning-of-defun)
