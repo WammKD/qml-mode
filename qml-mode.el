@@ -100,10 +100,14 @@
 
 
 (defun qml-indent-exp ()
+  "Properly indents the contents of the element within which the pointer is
+currently located."
   (interactive)
   (indent-region (point) (save-excursion (forward-list) (point))))
 
 (defun qml-indent-close-bracket ()
+  "Properly indents inputted closing brackets (aligns closing bracket with
+element name)."
   (interactive)
   (insert "}")
   (indent-for-tab-command))
