@@ -85,9 +85,11 @@
 
   ;; Methods dealing with editing entire elements
 (defun qml-beginning-of-defun ()
-  "Set the pointer at the beginning of the element within which the pointer is located."
+  "Set the pointer at the beginning of the element within which the pointer is
+located."
   (interactive)
-  (re-search-backward qml-defun-start-regexp))
+  (re-search-backward qml-defun-start-regexp)
+  (forward-char 1))
 
 (defun qml-end-of-defun ()
   "Set the pointer at the beginning of the element within which the pointer is located."
