@@ -39,9 +39,7 @@
   (concat "\\<" (regexp-opt '("import")) "\\>\\|" js--keyword-re))
 
 (defvar qml-font-lock-keywords
-  `(("/\\*.*\\*/\\|//.*"                ; comment
-     (0 font-lock-comment-face t t))
-    ("\\<\\(true\\|false\\|[A-Z][a-zA-Z0-9]*\\.[A-Z][a-zA-Z0-9]*\\)\\>" ; constants
+  `(("\\<\\(true\\|false\\|[A-Z][a-zA-Z0-9]*\\.[A-Z][a-zA-Z0-9]*\\)\\>" ; constants
      (0 font-lock-constant-face))
     ("\\<\\([A-Z][a-zA-Z0-9]*\\)\\>"    ; Elements
      (1 font-lock-function-name-face nil t)
