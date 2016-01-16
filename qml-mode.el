@@ -74,6 +74,7 @@
 (define-key qml-mode-map "\M-\C-h" 'qml-mark-defun)
 
 (define-key qml-mode-map (kbd "C-M-q") 'qml-indent-exp)
+(define-key qml-mode-map (kbd "}") 'qml-indent-close-bracket)
 
 (defconst qml-defun-start-regexp "\{")
 
@@ -101,6 +102,11 @@
 (defun qml-indent-exp ()
   (interactive)
   (indent-region (point) (save-excursion (forward-list) (point))))
+
+(defun qml-indent-close-bracket ()
+  (interactive)
+  (insert "}")
+  (indent-for-tab-command))
 
 (provide 'qml-mode)
 
