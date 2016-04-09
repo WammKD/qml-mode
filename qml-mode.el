@@ -49,7 +49,7 @@
      (2 font-lock-function-name-face nil t))
     (,(concat qml-keywords "\\|\\<parent\\>") ; keywords
      (0 font-lock-keyword-face nil t))
-    ("\\<\\([a-z][a-zA-Z.]*\\|property .+\\):\\|\\<\\(anchors\\|font\\|origin\\|axis\\)\\>" ; property
+    ("\\<\\([a-z][a-zA-Z.]*[ ]*\\|property .+\\):\\|\\<\\(anchors\\|font\\|origin\\|axis\\)\\>" ; property
      (1 font-lock-variable-name-face nil t)
      (2 font-lock-variable-name-face nil t))
     ("\\<function +\\([a-z][a-zA-Z0-9]*\\)\\>" ; method
