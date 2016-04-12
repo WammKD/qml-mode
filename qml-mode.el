@@ -52,7 +52,7 @@
     ("\\<\\([a-z][a-zA-Z.]*[ ]*\\|property .+\\):\\|\\<\\(anchors\\|font\\|origin\\|axis\\)\\>" ; property
      (1 font-lock-variable-name-face nil t)
      (2 font-lock-variable-name-face nil t))
-    ("\\<function +\\([a-z][a-zA-Z0-9]*\\)\\>" ; method
+    ("\\<function +\\([a-z][a-zA-Z0-9_]*\\)\\>" ; method
      (1 font-lock-function-name-face)))
   "Keywords to highlight in `qml-mode'.")
 
